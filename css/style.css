@@ -28,8 +28,8 @@ body {
 }
 
 table {
-    /* font-size: 24px; */
     border-collapse: collapse;
+    overflow: hidden; /* For highlight */
 }
 
 th {
@@ -46,4 +46,25 @@ td {
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 7px;
+}
+
+
+/* Below is for highlight */
+td, th {
+    position: relative;
+}
+
+th.highlight::after {
+    content: "";
+    position: absolute;
+    background-color: #000e2d10;
+    left: 0;
+    top: -5000px;
+    height: 10000px;
+    width: 100%;
+    z-index: -1;
+}
+
+tr:hover {
+    background-color: rgba(101, 207, 246, 0.261);
 }

@@ -3,6 +3,8 @@
 // Doing Stuff With Data
 // We imported some data and display it as a sortable table equipped with pagination for easy traversal
 
+import { getData } from "./fetch.js"; 
+
 let dirCont = document.getElementById('dirCont');
 let dirTable = document.getElementById('dirTable');
 let firstNameLink = document.getElementById('firstNameLink');
@@ -15,7 +17,7 @@ let prevLink = document.getElementById('prevBtn');
 let nextLink = document.getElementById('nextBtn');
 let btnList = document.getElementById('btnList');
 
-let data;
+let data = await getData();
 let orderedList;
 
 let pageSize = parseInt(pageSizeInp.value);
@@ -23,11 +25,12 @@ let curPage = 1;
 let maxPages;
 let sortProp = 'Id';
 
-async function getData() {
-    const response = await fetch('./data/data.json');
-    data = await response.json();
-    // console.log(data);
-}
+// Separated this function to it's own script
+// async function getData() {
+//     const response = await fetch('./data/data.json');
+//     data = await response.json();
+//     // console.log(data);
+// }
 
 
 function orderBy(property) {

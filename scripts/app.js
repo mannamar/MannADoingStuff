@@ -15,8 +15,6 @@ let prevLink = document.getElementById('prevBtn');
 let nextLink = document.getElementById('nextBtn');
 let btnList = document.getElementById('btnList');
 
-console.log(firstNameLink);
-
 let data;
 let orderedList;
 
@@ -224,4 +222,4 @@ maxPages = Math.ceil(data.People.length / pageSize);
 createBtnList();
 orderBy('Id');
 
-console.log(pageSize, maxPages);
+// console.log(pageSize, maxPages);

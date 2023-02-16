@@ -80,6 +80,8 @@ function clickNext() {
             nextBtn.classList.add('disabled');
         }
         populateList(orderedList);
+        removeActive();
+        document.getElementById(`page${curPage}Item`).classList.add('active');
     }
     console.log(curPage);
 }
@@ -92,6 +94,8 @@ function clickPrev() {
             prevBtn.classList.add('disabled');
         }
         populateList(orderedList);
+        removeActive();
+        document.getElementById(`page${curPage}Item`).classList.add('active');
     }
     console.log(curPage);
 }
@@ -147,6 +151,8 @@ function resetPage() {
     pageSize = parseInt(pageSizeInp.value);
     maxPages = Math.ceil(data.People.length / pageSize);
     console.log(pageSize, maxPages);
+    removeActive();
+    document.getElementById(`page1Item`).classList.add('active');
 }
 
 function createBtnList() {
@@ -160,17 +166,27 @@ function createBtnList() {
         a.id = `page${i}Btn`;
         let li = document.createElement('li');
         li.classList.add('page-item');
+        li.id = `page${i}Item`;
         li.addEventListener('click', function() {
             curPage = parseInt(li.textContent);
-            console.log(curPage);
+            // console.log(curPage);
             populateList(orderedList);
             disablePrevNext();
-            console.log(document.activeElement);
+            // console.log(document.activeElement);
+            removeActive();
+            li.classList.add('active');
         });
         li.append(a);
         btnList.append(li);
     }
     btnList.append(nextBtn);
+    document.getElementById(`page1Item`).classList.add('active');
+}
+
+function removeActive() {
+    let listItems = document.querySelectorAll('.pagination *');
+    // console.log(listItems);
+    listItems.forEach( item => {item.classList.remove('active')});
 }
 
 function disablePrevNext() {

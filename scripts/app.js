@@ -13,6 +13,7 @@ let prevBtn = document.getElementById('prevBtn');
 let nextBtn = document.getElementById('nextBtn');
 let prevLink = document.getElementById('prevBtn');
 let nextLink = document.getElementById('nextBtn');
+let btnList = document.getElementById('btnList');
 
 console.log(firstNameLink);
 
@@ -94,22 +95,27 @@ function clickPrev() {
 }
 
 idLink.addEventListener('click', function() {
+    resetPage();
     orderBy('Id');
 });
 
 firstNameLink.addEventListener('click', function() {
+    resetPage();
     orderBy('FirstName');
 });
 
 lastNameLink.addEventListener('click', function() {
+    resetPage();
     orderBy('LastName');
 });
 
 emailLink.addEventListener('click', function() {
+    resetPage();
     orderBy('Email');
 });
 
 heightLink.addEventListener('click', function() {
+    resetPage();
     orderBy('Height');
 });
 
@@ -123,6 +129,7 @@ prevLink.addEventListener('click', function() {
 
 pageSizeInp.addEventListener('change', function() {
     resetPage();
+    createBtnList();
     populateList(orderedList);
 });
 
@@ -135,9 +142,45 @@ function resetPage() {
     console.log(pageSize, maxPages);
 }
 
+function createBtnList() {
+    btnList.innerHTML = '';
+    btnList.append(prevBtn);
+    for (let i = curPage; i <= maxPages; i++) {
+        let a = document.createElement('a');
+        a.classList.add('page-link');
+        a.textContent = i;
+        a.href = '#';
+        a.id = `page${i}Btn`;
+        let li = document.createElement('li');
+        li.classList.add('page-item');
+        li.addEventListener('click', function() {
+            curPage = parseInt(li.textContent);
+            console.log(curPage);
+            populateList(orderedList);
+            disablePrevNext();
+            console.log(document.activeElement);
+        });
+        li.append(a);
+        btnList.append(li);
+    }
+    btnList.append(nextBtn);
+}
+
+function disablePrevNext() {
+    prevBtn.classList.remove('disabled');
+    nextBtn.classList.remove('disabled');
+    if (curPage === 1) {
+        prevBtn.classList.add('disabled');
+    }
+    if (curPage === maxPages) {
+        nextBtn.classList.add('disabled');
+    }
+}
+
 // Call at page load
 await getData();
 maxPages = Math.ceil(data.People.length / pageSize);
+createBtnList();
 orderBy('Id');
 
 console.log(pageSize, maxPages);

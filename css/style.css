@@ -41,6 +41,10 @@ th {
     background-color: #1145b5;
 }
 
+th:hover {
+    cursor: pointer;
+}
+
 td {
     font-size: 14px;
     padding-left: 30px;

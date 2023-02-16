@@ -103,31 +103,43 @@ function clickPrev() {
 idLink.addEventListener('click', function() {
     resetPage();
     orderBy('Id');
+    removeClass('highlight', 'topRow');
+    idLink.classList.add('highlight');
 });
 
 firstNameLink.addEventListener('click', function() {
     resetPage();
     orderBy('FirstName');
+    removeClass('highlight', 'topRow');
+    firstNameLink.classList.add('highlight');
 });
 
 lastNameLink.addEventListener('click', function() {
     resetPage();
     orderBy('LastName');
+    removeClass('highlight', 'topRow');
+    lastNameLink.classList.add('highlight');
 });
 
 emailLink.addEventListener('click', function() {
     resetPage();
     orderBy('Email');
+    removeClass('highlight', 'topRow');
+    emailLink.classList.add('highlight');
 });
 
 heightLink.addEventListener('click', function() {
     resetPage();
     orderBy('Height');
+    removeClass('highlight', 'topRow');
+    heightLink.classList.add('highlight');
 });
 
 ageLink.addEventListener('click', function() {
     resetPage();
     orderBy('Age');
+    removeClass('highlight', 'topRow');
+    ageLink.classList.add('highlight');
 });
 
 nextLink.addEventListener('click', function() {
@@ -187,6 +199,12 @@ function removeActive() {
     let listItems = document.querySelectorAll('.pagination *');
     // console.log(listItems);
     listItems.forEach( item => {item.classList.remove('active')});
+}
+
+function removeClass(className, parentID) {
+    let listItems = document.querySelectorAll(`#${parentID} *`);
+    console.log(listItems);
+    listItems.forEach( item => {item.classList.remove(className)});
 }
 
 function disablePrevNext() {

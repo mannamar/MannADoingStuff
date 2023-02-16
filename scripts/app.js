@@ -65,7 +65,9 @@ function populateList(list) {
         tdHeight.textContent = person.Height;
         let tdEmail = document.createElement('td');
         tdEmail.textContent = person.Email;
-        tr.append(tdID, tdFirstName, tdLastName, tdEmail, tdHeight);
+        let tdAge = document.createElement('td');
+        tdAge.textContent = person.Age;
+        tr.append(tdID, tdFirstName, tdLastName, tdEmail, tdHeight, tdAge);
         dirTable.append(tr);
     }
 }
@@ -117,6 +119,11 @@ emailLink.addEventListener('click', function() {
 heightLink.addEventListener('click', function() {
     resetPage();
     orderBy('Height');
+});
+
+ageLink.addEventListener('click', function() {
+    resetPage();
+    orderBy('Age');
 });
 
 nextLink.addEventListener('click', function() {

@@ -22,6 +22,7 @@ let orderedList;
 let pageSize = parseInt(pageSizeInp.value);
 let curPage = 1;
 let maxPages;
+let sortProp = 'Id';
 
 async function getData() {
     const response = await fetch('./data/data.json');
@@ -45,7 +46,12 @@ function orderBy(property) {
 function populateList(list) {
     dirTable.innerHTML = '';
     dirTable.append(topRow);
-    for (let i = 0; i < list.length; i++) {
+    let start = (curPage - 1 ) * pageSize;
+    let end = start + pageSize;
+    if (end > orderedList.length) {
+        end = orderedList.length;
+    }
+    for (let i = start; i < end; i++) {
         let person = list[i];
         let tr = document.createElement('tr');
         let tdFirstName = document.createElement('td');
@@ -70,6 +76,7 @@ function clickNext() {
         if (curPage === maxPages) {
             nextBtn.classList.add('disabled');
         }
+        populateList(orderedList);
     }
     console.log(curPage);
 }
@@ -81,6 +88,7 @@ function clickPrev() {
         if (curPage === 1) {
             prevBtn.classList.add('disabled');
         }
+        populateList(orderedList);
     }
     console.log(curPage);
 }
@@ -113,9 +121,23 @@ prevLink.addEventListener('click', function() {
     clickPrev();
 });
 
+pageSizeInp.addEventListener('change', function() {
+    resetPage();
+    populateList(orderedList);
+});
+
+function resetPage() {
+    prevBtn.classList.add('disabled');
+    nextBtn.classList.remove('disabled');
+    curPage = 1;
+    pageSize = parseInt(pageSizeInp.value);
+    maxPages = Math.ceil(data.People.length / pageSize);
+    console.log(pageSize, maxPages);
+}
+
 // Call at page load
 await getData();
-maxPages = data.People.length / pageSize;
-orderBy('FirstName');
+maxPages = Math.ceil(data.People.length / pageSize);
+orderBy('Id');
 
 console.log(pageSize, maxPages);

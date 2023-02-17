@@ -24,6 +24,7 @@ let pageSize = parseInt(pageSizeInp.value);
 let curPage = 1;
 let maxPages;
 let sortProp;
+let isReversed = false;
 
 // Separated this function to it's own script
 // async function getData() {
@@ -35,8 +36,11 @@ let sortProp;
 
 function orderBy(property) {
     let reverse = false;
-    if (sortProp === property) {
+    if (sortProp === property && !isReversed) {
         reverse = true;
+        isReversed = true;
+    } else {
+        isReversed = false;
     }
     sortProp = property;
     let people = data.People;

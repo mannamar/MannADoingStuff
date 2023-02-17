@@ -23,7 +23,7 @@ let orderedList;
 let pageSize = parseInt(pageSizeInp.value);
 let curPage = 1;
 let maxPages;
-let sortProp = 'Id';
+let sortProp;
 
 // Separated this function to it's own script
 // async function getData() {
@@ -34,6 +34,11 @@ let sortProp = 'Id';
 
 
 function orderBy(property) {
+    let reverse = false;
+    if (sortProp === property) {
+        reverse = true;
+    }
+    sortProp = property;
     let people = data.People;
     if (typeof people[0][property] === 'number') {
         // console.log('Is Number');
@@ -42,6 +47,9 @@ function orderBy(property) {
         orderedList = people.slice(0).sort( (person1, person2) => person1[property].toString().toLowerCase().localeCompare(person2[property].toString().toLowerCase()) );
     }
     // console.log(orderedList);
+    if (reverse) {
+        orderedList.reverse();
+    }
     populateList(orderedList);
 }
 
